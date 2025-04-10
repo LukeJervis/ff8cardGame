@@ -1,0 +1,85 @@
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
+  width: 600px;
+  height: 600px;
+  background: linear-gradient(135deg, var(--light-slate), var(--dark-slate));
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 40px rgba(0, 0, 0, 0.4);
+  position: relative;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  margin: 20px auto;
+}
+
+.game-board::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/images/ff8-board-pattern.png");
+  background-size: cover;
+  opacity: 0.1;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.game-board::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 40%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Add board light effect when a move is made */
+@keyframes board-highlight {
+  0% {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4),
+      inset 0 0 30px rgba(0, 0, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 10px 30px var(--accent-gold),
+      inset 0 0 50px rgba(212, 175, 55, 0.3);
+  }
+  100% {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4),
+      inset 0 0 30px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.game-board.move-made {
+  animation: board-highlight 1s ease;
+}
+
+/* Board container to center it properly */
+.board-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px 0;
+}
+
+/* Responsive adjustment for smaller screens */
+@media (max-width: 768px) {
+  .game-board {
+    width: 90vw;
+    height: 90vw;
+    padding: 10px;
+    gap: 8px;
+  }
+}

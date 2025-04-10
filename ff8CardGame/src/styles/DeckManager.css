@@ -1,0 +1,265 @@
+.deck-manager {
+  background: linear-gradient(135deg, var(--dark-slate), var(--light-slate));
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  width: 900px;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  animation: modal-appear 0.3s ease-out;
+}
+
+@keyframes modal-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.deck-manager-header {
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.deck-manager-header h2 {
+  margin: 0 0 15px 0;
+  color: var(--accent-gold);
+  font-size: 1.8rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.deck-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.deck-tabs button {
+  padding: 10px 20px;
+  background: linear-gradient(to bottom, #1a2736, #0d141c);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.deck-tabs button.active {
+  background: linear-gradient(
+    to bottom,
+    var(--secondary-blue),
+    var(--primary-blue)
+  );
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(41, 128, 185, 0.5);
+}
+
+.deck-manager-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  max-height: 60vh;
+}
+
+.deck-grid,
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.deck-card-container,
+.collection-card-container {
+  position: relative;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.deck-card-container:hover,
+.collection-card-container:hover {
+  transform: translateY(-10px);
+  z-index: 10;
+}
+
+.card-count {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: var(--accent-gold);
+  color: black;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.card-rarity {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.card-rarity[data-rarity="Common"] {
+  background-color: #8e9eab;
+  color: black;
+}
+
+.card-rarity[data-rarity="Uncommon"] {
+  background-color: #3cb371;
+  color: white;
+}
+
+.card-rarity[data-rarity="Rare"] {
+  background-color: #4169e1;
+  color: white;
+}
+
+.card-rarity[data-rarity="Epic"] {
+  background-color: #9932cc;
+  color: white;
+}
+
+.card-rarity[data-rarity="Legendary"] {
+  background-color: #ffd700;
+  color: black;
+}
+
+.card-level-indicator {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 12px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 2px 0;
+  border-radius: 0 0 8px 8px;
+}
+
+.combine-button {
+  position: absolute;
+  bottom: -45px;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to bottom, #9b59b6, #8e44ad);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 0;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.combine-button:hover {
+  background: linear-gradient(to bottom, #a569bd, #9b59b6);
+}
+
+.collection-card-container.in-deck::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  color: rgba(46, 204, 113, 0.8);
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+}
+
+.empty-deck-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px 20px;
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+}
+
+.deck-manager-footer {
+  padding: 15px 20px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancel-button,
+.save-button {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-button {
+  background: linear-gradient(to bottom, #7f8c8d, #2c3e50);
+  color: white;
+}
+
+.save-button {
+  background: linear-gradient(to bottom, #2ecc71, #27ae60);
+  color: white;
+}
+
+.cancel-button:hover {
+  background: linear-gradient(to bottom, #95a5a6, #34495e);
+  transform: translateY(-2px);
+}
+
+.save-button:hover {
+  background: linear-gradient(to bottom, #2ecc71, #27ae60);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(39, 174, 96, 0.3);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .deck-grid,
+  .collection-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+  }
+
+  .deck-manager {
+    max-height: 85vh;
+  }
+
+  .deck-manager-content {
+    padding: 15px;
+  }
+}

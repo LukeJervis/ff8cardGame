@@ -1,0 +1,221 @@
+.reward-screen {
+  background: linear-gradient(135deg, var(--dark-slate), var(--light-slate));
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  width: 700px;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  animation: reward-appear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes reward-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.reward-header {
+  padding: 25px 20px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.reward-header h2 {
+  margin: 0;
+  font-size: 2.5rem;
+  color: var(--accent-gold);
+  text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: glow-text 2s infinite;
+}
+
+@keyframes glow-text {
+  0% {
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 25px rgba(212, 175, 55, 0.8);
+  }
+  100% {
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+  }
+}
+
+.match-stats {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 15px;
+  font-size: 1.2rem;
+}
+
+.card-rewards {
+  padding: 20px;
+  text-align: center;
+}
+
+.card-rewards h3 {
+  margin: 0 0 20px 0;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: normal;
+}
+
+.cards-grid {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.reward-card {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.reward-card:hover {
+  transform: translateY(-10px) rotateY(5deg);
+}
+
+.reward-card.selected {
+  transform: translateY(-15px);
+}
+
+.reward-card.selected::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 3px solid var(--accent-gold);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+  pointer-events: none;
+  animation: pulse-selection 1.5s infinite;
+}
+
+@keyframes pulse-selection {
+  0% {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.9);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+  }
+}
+
+.reward-details {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.currency-gained,
+.experience-gained {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.currency-icon,
+.xp-icon {
+  font-size: 1.5rem;
+}
+
+.reward-footer {
+  padding: 20px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.confirm-button {
+  padding: 12px 40px;
+  background: linear-gradient(to bottom, var(--accent-gold), #b7950b);
+  color: #000;
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.confirm-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+.confirm-button:disabled {
+  background: #7f8c8d;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Special animations for victory */
+.reward-header h2:not(:contains("Defeat")) {
+  animation: victory-animation 1s;
+}
+
+@keyframes victory-animation {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cards-grid {
+    gap: 15px;
+  }
+
+  .reward-card {
+    transform: scale(0.9);
+  }
+
+  .reward-card:hover,
+  .reward-card.selected {
+    transform: scale(0.9) translateY(-10px);
+  }
+
+  .reward-details {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

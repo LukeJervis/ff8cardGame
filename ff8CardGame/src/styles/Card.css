@@ -1,0 +1,340 @@
+@keyframes cardFlip {
+  0% {
+    transform: perspective(1000px) rotateY(0deg);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+  }
+  25% {
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.6);
+  }
+  50% {
+    transform: perspective(1000px) rotateY(90deg);
+    box-shadow: 0 0 30px 8px rgba(255, 255, 255, 0.8);
+  }
+  75% {
+    box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.6);
+  }
+  100% {
+    transform: perspective(1000px) rotateY(0deg);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+  }
+}
+
+.card.flipping {
+  animation: cardFlip 0.8s ease-in-out;
+  z-index: 10;
+}
+
+.card.owner-blue {
+  box-shadow: 0 0 0 2px #3498db, var(--blue-glow);
+}
+
+.card.owner-red {
+  box-shadow: 0 0 0 2px #e74c3c, var(--red-glow);
+}
+
+.card {
+  width: 140px;
+  height: 180px;
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #3a4a5f, #2a3a4f);
+  font-size: 12px;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("/images/card-texture.png");
+  background-size: cover;
+  opacity: 0.05;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.card:hover {
+  transform: translateY(-8px) rotateY(5deg);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  z-index: 5;
+}
+
+.card.selected {
+  box-shadow: 0 0 0 3px var(--highlight-yellow), var(--gold-glow);
+  animation: pulse-select 1.5s infinite;
+}
+
+@keyframes pulse-select {
+  0% {
+    box-shadow: 0 0 0 2px var(--highlight-yellow), var(--gold-glow);
+  }
+  50% {
+    box-shadow: 0 0 0 3px var(--highlight-yellow),
+      0 0 20px 5px rgba(255, 215, 0, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 0 2px var(--highlight-yellow), var(--gold-glow);
+  }
+}
+
+.card.selected.owner-blue {
+  box-shadow: 0 0 0 3px var(--highlight-yellow), 0 0 15px 3px #3498db;
+}
+
+.card.selected.owner-red {
+  box-shadow: 0 0 0 3px var(--highlight-yellow), 0 0 15px 3px #e74c3c;
+}
+
+.card-blue {
+  background: linear-gradient(135deg, #2980b9, #1a5276);
+}
+
+.card-red {
+  background: linear-gradient(135deg, #c0392b, #922b21);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+.card-name {
+  font-weight: bold;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 80px;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.card-level {
+  font-size: 12px;
+  padding: 2px 6px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  color: var(--highlight-yellow);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.card-image {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-placeholder {
+  width: 100%;
+  height: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3));
+  border-radius: 4px;
+  font-size: 36px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.3);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-ranks {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.rank {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.3),
+    rgba(0, 0, 0, 0.5)
+  );
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.rank-top {
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.rank-right {
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.rank-bottom {
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.rank-left {
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.card-element {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 9px;
+  padding: 2px 4px;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.element-fire {
+  background-color: rgba(231, 76, 60, 0.8);
+  box-shadow: 0 0 8px rgba(231, 76, 60, 0.6);
+}
+
+.element-ice {
+  background-color: rgba(52, 152, 219, 0.8);
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.6);
+}
+
+.element-thunder {
+  background-color: rgba(241, 196, 15, 0.8);
+  box-shadow: 0 0 8px rgba(241, 196, 15, 0.6);
+}
+
+.element-water {
+  background-color: rgba(41, 128, 185, 0.8);
+  box-shadow: 0 0 8px rgba(41, 128, 185, 0.6);
+}
+
+.element-wind {
+  background-color: rgba(26, 188, 156, 0.8);
+  box-shadow: 0 0 8px rgba(26, 188, 156, 0.6);
+}
+
+.element-earth {
+  background-color: rgba(155, 89, 182, 0.8);
+  box-shadow: 0 0 8px rgba(155, 89, 182, 0.6);
+}
+
+.element-holy {
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  color: #333;
+}
+
+.element-poison {
+  background-color: rgba(142, 68, 173, 0.8);
+  box-shadow: 0 0 8px rgba(142, 68, 173, 0.6);
+}
+
+.card-back {
+  background: linear-gradient(135deg, #34495e, #2c3e50);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.card-back-design {
+  width: 100%;
+  height: 100%;
+  background-image: url("/images/ff8-card-back.jpg");
+  background-size: cover;
+  background-position: center;
+  border-radius: 4px;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-back-design::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.1),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* Special styles for cards that appear on the board */
+.game-cell .card {
+  width: 100%;
+  height: 100%;
+  transform: none !important; /* Prevent hover transform on board */
+}
+
+.game-cell .card:hover {
+  transform: none !important;
+  box-shadow: none;
+}
+
+/* Make the card content fit better when on the board */
+.game-cell .card-placeholder {
+  height: 110px;
+}
+
+.game-cell .card-header {
+  margin-bottom: 5px;
+}
+
+/* Scale down card elements on board */
+.game-cell .rank {
+  width: 28px;
+  height: 28px;
+  font-size: 16px;
+}
+
+.game-cell .card-element {
+  font-size: 9px;
+  padding: 2px 4px;
+}

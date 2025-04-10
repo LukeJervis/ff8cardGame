@@ -1,0 +1,139 @@
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.game-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.game-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.game-controls button {
+  padding: 8px 16px;
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.game-controls button:hover {
+  background-color: #34495e;
+}
+
+.game-area {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+.opponent-area,
+.player-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.board-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 10px 0;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 15px;
+  border-radius: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.player-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: white;
+}
+
+.player-rank {
+  background: linear-gradient(to bottom, var(--accent-gold), #b7950b);
+  color: black;
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.player-currency {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 3px 10px;
+  border-radius: 15px;
+}
+
+.currency-icon {
+  font-size: 1.1rem;
+  color: var(--accent-gold);
+}
+
+.player-stats {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.opponent-selector {
+  background: linear-gradient(
+    to bottom,
+    var(--secondary-blue),
+    var(--primary-blue)
+  );
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px;
+}
+
+.opponent-selector:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.5);
+}
+
+/* Add animation for the game over modal */
+.modal-overlay {
+  animation: fade-in 0.3s ease;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
